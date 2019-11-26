@@ -17,7 +17,7 @@ public class Book {
     String url;
     double price;
     String isbn;
-    LinkedList<Author> authorlist = new LinkedList<Author>();
+    LinkedList<Author> authorList = new LinkedList<Author>();
     Publisher publisher;
 
     public Book(String title, String url, double price, String isbn, LinkedList<Author> author, Publisher publisher) {
@@ -25,7 +25,7 @@ public class Book {
         this.url = url;
         this.price = price;
         this.isbn = isbn;
-        this.authorlist = author;
+        this.authorList = author;
         this.publisher = publisher;
     }
     

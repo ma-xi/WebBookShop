@@ -22,7 +22,7 @@
             <h5>Bücher mit dem besonderen Pfiff</h5> 
         </div>
         <div class="container">
-            <form id="optionForm" class="form-inline" action="" method="POST">
+            <form id="optionForm" class="form-inline" action="WebShopController" method="POST">
                 <label class="mr-sm-2">Sortieren nach:</label>
                 <select id="sortSelection" class="form-control mb-2 mr-sm-2" name="sortSelection">
                     <option value="Titel">Titel</option>
@@ -45,9 +45,7 @@
                       <c:forEach var="book" items="${books2display}">
                         <td>${book}</td>
                         <td>
-                        <c:forEach var="bookAuthor" items="${book.authorList}">
-                            ${bookAuthor + ", "}
-                        </c:forEach>
+                
                         <td>
                         <td>${book.publisher}</td>
                         <td>${book.price}</td>

@@ -62,7 +62,7 @@ public class WebShopController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -76,9 +76,9 @@ public class WebShopController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        Book b = new Book("Leben und Tod des Johnny Cash", "www.xnxx.com", 100, "69", new LinkedList<Author>(), new Publisher("Heinrich Freddy Quinn", "pornhuboida"));
         LinkedList<Book> booklist =new LinkedList<Book>();
-        booklist.add(new Book("", "www.xnxx.com", 100, "69", new LinkedList<Author>(), new Publisher("Heinrich Freddy Quinn", "pornhuboida")));
+        booklist.add(b);
         request.setAttribute("books2display", booklist);
         
         
@@ -86,7 +86,9 @@ public class WebShopController extends HttpServlet {
         
         
         
-        request.getRequestDispatcher(path);
+        
+        
+        request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
     }
 
     /**

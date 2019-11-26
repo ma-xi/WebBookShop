@@ -7,7 +7,6 @@ package database;
 
 import beans.Author;
 import beans.Book;
-import beans.Exemplar;
 import beans.Publisher;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,7 +56,7 @@ public class DB_Access {
             String publishername = rs.getString("publishername");
             String bookname = rs.getString("bookname");
             
-            Author a = new Author(name, nachname, authorurl);
+           // Author a = new Author(name, nachname, authorurl);
             Publisher p = new Publisher(publisherurl, publishername);
             
         }
@@ -67,8 +66,8 @@ public class DB_Access {
     public static void main(String[] args) {
         DB_Access dba = new DB_Access();
         try {
-            List<Book> books = dba.getAllBooksFromAuthor();
-            System.out.println(books);
+         //   List<Book> books = dba.getAllBooksFromAuthor();
+          //  System.out.println(books);
         } catch (Exception ex) {
             Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);
         }

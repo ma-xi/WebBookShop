@@ -43,5 +43,9 @@ public class Author {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
+    @Override
+    public String toString() {
+        return nachname.toUpperCase() + " " + vorname;
+    }
 }

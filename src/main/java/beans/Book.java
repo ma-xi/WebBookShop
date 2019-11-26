@@ -63,5 +63,15 @@ public class Book {
         this.isbn = isbn;
     }
     
+    public String getFormattedPrice()
+    {
+        return String.format("%.2f €", price);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("<b>%s</b><br/>%s", title, isbn);
+    }
+    
     
 }

@@ -44,6 +44,13 @@
                   <tr>
                       <c:forEach var="book" items="${books2display}">
                         <td>${book}</td>
+                        <td>
+                        <c:forEach var="bookAuthor" items="${book.authorList}">
+                            ${bookAuthor + ", "}
+                        </c:forEach>
+                        <td>
+                        <td>${book.publisher}</td>
+                        <td>${book.price}</td>
                       </c:forEach>
                   </tr>
                   </tr>

@@ -5,6 +5,8 @@
  */
 package beans;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Leonhard Wogg
@@ -15,15 +17,15 @@ public class Book {
     String url;
     double price;
     String isbn;
-    Author author;
+    LinkedList<Author> authorlist = new LinkedList<Author>();
     Publisher publisher;
 
-    public Book(String title, String url, double price, String isbn, Author author, Publisher publisher) {
+    public Book(String title, String url, double price, String isbn, LinkedList<Author> author, Publisher publisher) {
         this.title = title;
         this.url = url;
         this.price = price;
         this.isbn = isbn;
-        this.author = author;
+        this.authorlist = author;
         this.publisher = publisher;
     }
     

@@ -7,6 +7,7 @@ package database;
 
 import beans.Author;
 import beans.Book;
+import beans.Exemplar;
 import beans.Publisher;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,21 +29,36 @@ public class DB_Access {
             
     private DB_PStatPool pStatPool = DB_PStatPool.getInstance();
 
-    public List<Book> getAllBooksFromAuthor() throws Exception {
+    public List<Book> getAllBooksFromAuthor(String author) throws Exception {
         PreparedStatement pStat = pStatPool.getPStat(DB_StmtType.GET_BOOKS_FROM_AUTHOR);
-        pStat.setString(1, "%%");
+        if(!author.equals(""))
+        {
+               pStat.setString(1, author);
+        }
+        
+        else
+        {
+            pStat.setString(1, "%%");
+        }
+     
         ResultSet rs = pStat.executeQuery();
         List<Book> bookList = new LinkedList<>();
         while (rs.next()) {
             int book_id = rs.getInt("book_id");
             String title = rs.getString("title");
-            String url = rs.getString("url");
+            String publisherurl = rs.getString("publisherurl");
+            String bookurl = rs.getString("bookurl");
+            String authorurl = rs.getString("authorurl");
             double price = rs.getDouble("price");
             int publisher_id = rs.getInt("publisher_id");
             String isbn = rs.getString("isbn");
-            String name = rs.getString("vorname");
-            String nachname = rs.getString("vorname");
+            String authorname = rs.getString("vorname");
+            String authornachname = rs.getString("nachname");
+            String publishername = rs.getString("publishername");
+            String bookname = rs.getString("bookname");
             
+            Author a = new Author(name, nachname, authorurl);
+            Publisher p = new Publisher(publisherurl, publishername);
             
         }
         return bookList;

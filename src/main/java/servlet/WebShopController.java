@@ -5,8 +5,12 @@
  */
 package servlet;
 
+import beans.Author;
+import beans.Book;
+import beans.Publisher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +76,17 @@ public class WebShopController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        LinkedList<Book> booklist =new LinkedList<Book>();
+        booklist.add(new Book("", "www.xnxx.com", 100, "69", new LinkedList<Author>(), new Publisher("Heinrich Freddy Quinn", "pornhuboida")));
+        request.setAttribute("books2display", booklist);
+        
+        
+        
+        
+        
+        
+        request.getRequestDispatcher(path);
     }
 
     /**

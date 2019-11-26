@@ -15,13 +15,19 @@ public class Book {
     String url;
     double price;
     String isbn;
+    Author author;
+    Publisher publisher;
 
-    public Book(String title, String url, double price, String isbn) {
+    public Book(String title, String url, double price, String isbn, Author author, Publisher publisher) {
         this.title = title;
         this.url = url;
         this.price = price;
         this.isbn = isbn;
+        this.author = author;
+        this.publisher = publisher;
     }
+    
+    
 
     public String getTitle() {
         return title;

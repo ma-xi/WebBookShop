@@ -6,6 +6,7 @@
 package beans;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -17,10 +18,10 @@ public class Book {
     String url;
     double price;
     String isbn;
-    LinkedList<Author> authorList = new LinkedList<Author>();
+    List<Author> authorList = new LinkedList<Author>();
     Publisher publisher;
 
-    public Book(String title, String url, double price, String isbn, LinkedList<Author> author, Publisher publisher) {
+    public Book(String title, String url, double price, String isbn, List<Author> author, Publisher publisher) {
         this.title = title;
         this.url = url;
         this.price = price;
@@ -62,6 +63,22 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
     
     public String getFormattedPrice()
     {
@@ -70,7 +87,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("<b>%s</b><br/>%s", title, isbn);
+        return String.format("<b>%s</b><br/>ISBN: %s<br/><a href=\"%s\">%s</a>", 
+                title, isbn, url, url);
     }
     
     public void setAuthorList(Author b)

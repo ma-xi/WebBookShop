@@ -34,7 +34,7 @@
             <table class="table table-dark table-hover">
                 <thead>
                   <tr>
-                    <th>Buchtitel</th>
+                    <th>Buch</th>
                     <th>Autor</th>
                     <th>Verlag</th>
                     <th>Preis</th>
@@ -44,11 +44,11 @@
                   <tr>
                       <c:forEach var="book" items="${books2display}">
                         <td>${book}</td>
-                        <td>
-                
-                        <td>
+                        <c:forEach var="bookAuthor" items="${book.authorList}">
+                            <td>${bookAuthor}</td>
+                        </c:forEach>
                         <td>${book.publisher}</td>
-                        <td>${book.price}</td>
+                        <td><b>${book.getFormattedPrice()}</b></td>
                       </c:forEach>
                   </tr>
                   </tr>

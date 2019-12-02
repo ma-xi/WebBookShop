@@ -11,6 +11,7 @@ import beans.Publisher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -76,7 +77,11 @@ public class WebShopController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Book b = new Book("Leben und Tod des Johnny Cash", "www.xnxx.com", 100, "69", new LinkedList<Author>(), new Publisher("Heinrich Freddy Quinn", "pornhuboida"));
+        Author author = new Author("Leonhard", "Wogg", "www.google.com");
+        List<Author> authorL = List.of(author);
+        Book b = new Book("Leben und Tod des Johnny Cash", "www.google.com", 100, "69", 
+                authorL,
+                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
         LinkedList<Book> booklist =new LinkedList<Book>();
         booklist.add(b);
         request.setAttribute("books2display", booklist);

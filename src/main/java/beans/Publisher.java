@@ -36,7 +36,7 @@ public class Publisher {
 
     @Override
     public String toString() {
-        return nameOfPublisher;
+        return String.format("<b>%s</b><br/><a href=\"%s\">%s</a>", nameOfPublisher, url, url);
     }
     
     

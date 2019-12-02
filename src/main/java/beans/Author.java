@@ -46,6 +46,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return nachname.toUpperCase() + " " + vorname;
+        return String.format("<b>%s %s</b><br/><a href=\"%s\">%s</a>", 
+                vorname, nachname.toUpperCase(), url, url);
     }
 }

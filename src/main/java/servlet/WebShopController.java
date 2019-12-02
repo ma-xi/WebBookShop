@@ -85,14 +85,6 @@ public class WebShopController extends HttpServlet {
         LinkedList<Book> booklist =new LinkedList<Book>();
         booklist.add(b);
         request.setAttribute("books2display", booklist);
-        
-        
-        
-        
-        
-        
-        
-        
         request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
     }
 

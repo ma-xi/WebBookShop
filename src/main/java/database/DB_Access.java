@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Florian
+ * @author 
  */
 public class DB_Access {
     

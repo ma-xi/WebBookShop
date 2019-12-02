@@ -7,7 +7,7 @@ package database;
 
 /**
  *
- * @author Florian
+ * @author 
  */
 public enum DB_StmtType {
     

@@ -73,5 +73,8 @@ public class Book {
         return String.format("<b>%s</b><br/>%s", title, isbn);
     }
     
-    
+    public void setAuthorList(Author b)
+    {
+         authorList.add(b);
+    }
 }

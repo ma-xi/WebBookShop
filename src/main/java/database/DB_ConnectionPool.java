@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Florian
+ * @author 
  */
 public class DB_ConnectionPool implements DB_Config{
 

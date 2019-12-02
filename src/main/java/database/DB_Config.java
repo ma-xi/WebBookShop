@@ -7,7 +7,7 @@ package database;
 
 /**
  *
- * @author Florian
+ * @author 
  */
 public interface DB_Config {
     public static final String DB_NAME = "booksdb"; 

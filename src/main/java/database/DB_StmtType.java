@@ -13,7 +13,12 @@ public enum DB_StmtType {
     
     GET_BOOKS_FROM_AUTHOR("SELECT * FROM book b INNER JOIN bookauthor ba ON b.book_id = ba.book_id "
             + "INNER JOIN author a ON ba.author_id = a.author_id "
-            + "WHERE a.firstname || ' ' || a.lastname LIKE ?");
+            + "WHERE a.lastname LIKE ?"),
+    
+    GETAUTHORSFROMBOOK(("Select * FROM bookauthor INNER JOIN author USING author_id WHERE book_id = ?")),
+    
+    GETPUBLISHERWITHID("SELECT * FROM publisher WHERE publisher_id = ?");
+    
     
     private String sqlString;
 

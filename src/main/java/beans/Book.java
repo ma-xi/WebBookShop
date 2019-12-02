@@ -91,5 +91,8 @@ public class Book {
                 title, isbn, url, url);
     }
     
-    
+    public void setAuthorList(Author b)
+    {
+         authorList.add(b);
+    }
 }

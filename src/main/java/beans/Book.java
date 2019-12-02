@@ -82,7 +82,7 @@ public class Book {
     
     public String getFormattedPrice()
     {
-        return String.format("%.2f €", price);
+        return String.format("%.2f€", price);
     }
 
     @Override

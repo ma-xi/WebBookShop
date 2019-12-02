@@ -8,15 +8,19 @@ package servlet;
 import beans.Author;
 import beans.Book;
 import beans.Publisher;
+import database.DB_Access;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -77,15 +81,20 @@ public class WebShopController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Author author = new Author("Leonhard", "Wogg", "www.google.com");
-        List<Author> authorL = List.of(author);
-        Book b = new Book("Leben und Tod des Johnny Cash", "www.google.com", 100, "69", 
-                authorL,
-                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
-        LinkedList<Book> booklist =new LinkedList<Book>();
-        booklist.add(b);
-        request.setAttribute("books2display", booklist);
-        request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
+        try {
+            //        Author author = new Author("Leonhard", "Wogg", "www.google.com");
+//        List<Author> authorL = List.of(author);
+//        Book b = new Book("Leben und Tod des Johnny Cash", "www.google.com", 100, "69", 
+//                authorL,
+//                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
+            String authorStr = "";
+            LinkedList<Book> booklist =new LinkedList<Book>(DB_Access.getAllBooksFromAuthor(authorStr));
+            //        booklist.add(b);
+            request.setAttribute("books2display", booklist);
+            request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
     }
 
     /**

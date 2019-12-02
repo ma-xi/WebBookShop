@@ -15,7 +15,7 @@ public enum DB_StmtType {
             + "INNER JOIN author a ON ba.author_id = a.author_id "
             + "WHERE a.lastname LIKE ?"),
     
-    GETAUTHORSFROMBOOK(("Select * FROM bookauthor INNER JOIN author USING author_id WHERE book_id = ?")),
+    GETAUTHORSFROMBOOK(("Select * FROM bookauthor ba INNER JOIN author a ON ba.author_id = a.author_id WHERE book_id = ?")),
     
     GETPUBLISHERWITHID("SELECT * FROM publisher WHERE publisher_id = ?");
     

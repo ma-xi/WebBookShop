@@ -22,14 +22,12 @@ import java.util.logging.Logger;
  */
 public class DB_Access {
     
-    List<Author> authorlist = new LinkedList();
-    List<Publisher> publisherlist = new LinkedList();
-            
-            
-            
-    private DB_PStatPool pStatPool = DB_PStatPool.getInstance();
+    private static List<Author> authorlist = new LinkedList();
+    private static List<Publisher> publisherlist = new LinkedList();            
+    private static DB_PStatPool pStatPool = DB_PStatPool.getInstance();    
+    
 
-    public List<Book> getAllBooksFromAuthor(String author) throws Exception {
+    public static List<Book> getAllBooksFromAuthor(String author) throws Exception {
         PreparedStatement pStat = pStatPool.getPStat(DB_StmtType.GET_BOOKS_FROM_AUTHOR);
         if(!author.equals(""))
         {
@@ -44,32 +42,27 @@ public class DB_Access {
         ResultSet rs = pStat.executeQuery();
         List<Book> bookList = new LinkedList<>();
         while (rs.next()) {
-            int book_id = rs.getInt("b.book_id");
-            String title = rs.getString("b.title");
+            int book_id = rs.getInt("book_id");
+            String title = rs.getString("title");
      
-            String bookurl = rs.getString("b.url");
+            String bookurl = rs.getString("url");
 
-            double price = rs.getDouble("b.price");
-            int publisher_id = rs.getInt("b.publisher_id");
-            String isbn = rs.getString("b.isbn");
+            double price = rs.getDouble("price");
+            int publisher_id = rs.getInt("publisher_id");
+            String isbn = rs.getString("isbn");
   
-            
-           // Author a = new Author(name, nachname, authorurl);
-            
-            
-            
-                    
-               bookList.add(new Book(title,bookurl,price,isbn,getAuthors(book_id),getPublisher(publisher_id)));
+            bookList.add(new Book(title,bookurl,price,isbn,getAuthors(book_id),getPublisher(publisher_id)));
             
         }
+        pStatPool.realesePStat(pStat);
         return bookList;
     }
    
-    public LinkedList<Author> getAuthors(int bookid) throws Exception
+    public static LinkedList<Author> getAuthors(int bookid) throws Exception
     {
         LinkedList<Author> returnlist = new LinkedList<>();
         PreparedStatement pstat = pStatPool.getPStat(DB_StmtType.GETAUTHORSFROMBOOK);
-        pstat.setString(1, bookid+"");
+        pstat.setInt(1, bookid);
         ResultSet rs = pstat.executeQuery();
         while(rs.next())
         {
@@ -79,12 +72,13 @@ public class DB_Access {
             
             returnlist.add(new Author(authorname, authorlastname, url));
         }
+        pStatPool.realesePStat(pstat);
         return returnlist;
     }
-    public Publisher getPublisher(int publisher_id) throws Exception
+    public static Publisher getPublisher(int publisher_id) throws Exception
     {
         PreparedStatement pstat = pStatPool.getPStat(DB_StmtType.GETPUBLISHERWITHID);
-        pstat.setString(1, publisher_id+"");
+        pstat.setInt(1, publisher_id);
         ResultSet rs = pstat.executeQuery();
         Publisher p = null;
         while(rs.next())
@@ -93,6 +87,7 @@ public class DB_Access {
             String url = rs.getString("url");
              p = new Publisher(name, url);
         }
+        pStatPool.realesePStat(pstat);
         return p;
     }
     public static void main(String[] args) {

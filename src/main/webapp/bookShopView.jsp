@@ -24,11 +24,14 @@
         <div class="container">
             <form id="optionForm" class="form-inline" action="WebShopController" method="POST">
                 <label class="mr-sm-2">Sortieren nach:</label>
-                <select id="sortSelection" class="form-control mb-2 mr-sm-2" name="sortSelection">
+                <select id="sortSelection" class="form-control mb-2 mr-sm-2" name="sortSelection" onchange="this.form.submit()">
                     <option value="Titel">Titel</option>
                     <option value="Autor">Autor</option>
                     <option value="Preis">Preis</option>
                 </select>
+                <label class="mr-sm-2">Filtern:</label>
+                <input type="text" name="filter" value="" />
+                <input type="submit" value="Filtern" name="filterBtn" />
             </form> 
             <br/>
             <table class="table table-dark table-hover">

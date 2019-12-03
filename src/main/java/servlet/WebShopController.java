@@ -92,6 +92,9 @@ public class WebShopController extends HttpServlet {
 //                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
             String authorStr = "";
             LinkedList<Book> booklist =new LinkedList<Book>(DB_Access.getAllBooksFromAuthor(authorStr));
+            LinkedList<Book> filterlist = new LinkedList<Book>();
+            
+           
             
             if(request.getParameter("sortSelection").equals("Titel"))
             {
@@ -111,6 +114,37 @@ public class WebShopController extends HttpServlet {
                     return (o1.getPrice()+"").compareTo(o2.getPrice()+"");
                 });
             }
+            
+            if(request.getParameter("filter")!=null&&!request.getParameter("filter").equals(""))
+            {
+                String filter = request.getParameter("filter").toLowerCase();
+                if(request.getParameter("filterSel").equals("title"))
+                {
+                    for(Book b:booklist)
+                    {
+                        for(Author a:b.getAuthorList())
+                        {
+                            
+                            if(!a.getNachname().toLowerCase().contains(filter)&&!a.getVorname().toLowerCase().contains(filter))
+                            {
+                                booklist.remove(b);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if(request.getParameter("titelfilter").equals("author"))
+                {
+                    for(Book b:booklist)
+                    {
+                        if(!b.getTitle().toLowerCase().contains(filter))
+                        {
+                            booklist.remove(b);
+                        }
+                    }
+                }
+            }
+            
             //        booklist.add(b);
             request.setAttribute("books2display", booklist);
             request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);

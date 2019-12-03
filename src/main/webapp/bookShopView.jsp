@@ -41,16 +41,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                      <c:forEach var="book" items="${books2display}">
-                        <td>${book}</td>
-                        <c:forEach var="bookAuthor" items="${book.authorList}">
-                            <td>${bookAuthor}</td>
-                        </c:forEach>
-                        <td>${book.publisher}</td>
-                        <td><b>${book.getFormattedPrice()}</b></td>
-                      </c:forEach>
-                  </tr>
+                    <c:forEach var="book" items="${books2display}">
+                        <tr>
+                            <td>${book}</td>
+                            <td>
+                                <c:forEach var="bookAuthor" items="${book.authorList}">
+                                    ${bookAuthor}<br/>
+                                </c:forEach>
+                            </td>
+                            <td>${book.publisher}</td>
+                            <td><b>${book.getFormattedPrice()}</b></td>
+                        </tr>  
+                    </c:forEach>
                   </tr>
                 </tbody>
           </table>

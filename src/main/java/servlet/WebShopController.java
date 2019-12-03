@@ -11,13 +11,19 @@ import beans.Publisher;
 import database.DB_Access;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -78,19 +84,39 @@ public class WebShopController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-
-     
-        
-        
-        
-        
-        
-        
-        
-        
-        request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
+        try {
+            //        Author author = new Author("Leonhard", "Wogg", "www.google.com");
+//        List<Author> authorL = List.of(author);
+//        Book b = new Book("Leben und Tod des Johnny Cash", "www.google.com", 100, "69", 
+//                authorL,
+//                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
+            String authorStr = "";
+            LinkedList<Book> booklist =new LinkedList<Book>(DB_Access.getAllBooksFromAuthor(authorStr));
+            
+            if(request.getParameter("sortSelection").equals("Titel"))
+            {
+                Collections.sort(booklist,(o1, o2) -> {
+                    return o1.getTitle().compareTo(o2.getTitle());
+                });
+            }
+            else if(request.getAttribute("sortSelection").equals("Autor"))
+            {
+                Collections.sort(booklist,(o1, o2) -> {
+                    return (o1.getAuthorList()+"").compareTo(o2.getAuthorList()+"");
+                });
+            }
+                 else if(request.getAttribute("sortSelection").equals("Preis"))
+            {
+                Collections.sort(booklist,(o1, o2) -> {
+                    return (o1.getPrice()+"").compareTo(o2.getPrice()+"");
+                });
+            }
+            //        booklist.add(b);
+            request.setAttribute("books2display", booklist);
+            request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
     }
 
     /**

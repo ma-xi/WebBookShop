@@ -27,17 +27,17 @@ public class DB_Access {
     private static DB_PStatPool pStatPool = DB_PStatPool.getInstance();    
     
 
-    public static List<Book> getAllBooksFromAuthor(String author) throws Exception {
-        PreparedStatement pStat = pStatPool.getPStat(DB_StmtType.GET_BOOKS_FROM_AUTHOR);
-        if(!author.equals(""))
-        {
-               pStat.setString(1, author);
-        }
-        
-        else
-        {
-            pStat.setString(1, "%%");
-        }
+    public static List<Book> getAllBooksFromAuthor() throws Exception {
+        PreparedStatement pStat = pStatPool.getPStat(DB_StmtType.GETBOOKS);
+//        if(!author.equals(""))
+//        {
+//               pStat.setString(1, author);
+//        }
+//        
+//        else
+//        {
+//            pStat.setString(1, "%%");
+//        }
      
         ResultSet rs = pStat.executeQuery();
         List<Book> bookList = new LinkedList<>();
@@ -51,7 +51,12 @@ public class DB_Access {
             int publisher_id = rs.getInt("publisher_id");
             String isbn = rs.getString("isbn");
   
-            bookList.add(new Book(title,bookurl,price,isbn,getAuthors(book_id),getPublisher(publisher_id)));
+            Book book = new Book(title,bookurl,price,isbn,getAuthors(book_id),getPublisher(publisher_id));
+//            System.out.println(book);
+            if(!bookList.contains(book))
+            {
+                bookList.add(book);
+            }
             
         }
         pStatPool.realesePStat(pStat);

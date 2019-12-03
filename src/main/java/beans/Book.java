@@ -5,8 +5,10 @@
  */
 package beans;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -65,6 +67,7 @@ public class Book {
     }
 
     public List<Author> getAuthorList() {
+        Collections.sort(authorList, (a1, a2) -> a1.getNachname().compareTo(a2.getNachname()));
         return authorList;
     }
 
@@ -95,4 +98,51 @@ public class Book {
     {
          authorList.add(b);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + Objects.hashCode(this.title);
+        hash = 19 * hash + Objects.hashCode(this.url);
+        hash = 19 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        hash = 19 * hash + Objects.hashCode(this.isbn);
+        hash = 19 * hash + Objects.hashCode(this.authorList);
+        hash = 19 * hash + Objects.hashCode(this.publisher);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Book other = (Book) obj;
+        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.url, other.url)) {
+            return false;
+        }
+        if (!Objects.equals(this.isbn, other.isbn)) {
+            return false;
+        }
+        if (!Objects.equals(this.authorList, other.authorList)) {
+            return false;
+        }
+        if (!Objects.equals(this.publisher, other.publisher)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

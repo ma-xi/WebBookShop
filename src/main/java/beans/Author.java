@@ -9,7 +9,7 @@ package beans;
  *
  * @author Leonhard Wogg
  */
-public class Author {
+public class Author{
     String vorname; 
     String nachname; 
     String url; 

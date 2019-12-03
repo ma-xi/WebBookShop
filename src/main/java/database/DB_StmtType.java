@@ -11,7 +11,7 @@ package database;
  */
 public enum DB_StmtType {
     
-    GET_BOOKS_FROM_AUTHOR("SELECT b. FROM book b INNER JOIN bookauthor ba ON b.book_id = ba.book_id "
+    GET_BOOKS_FROM_AUTHOR("SELECT * FROM book b INNER JOIN bookauthor ba ON b.book_id = ba.book_id "
             + "INNER JOIN author a ON ba.author_id = a.author_id "
             + "WHERE a.lastname LIKE ?"),
     

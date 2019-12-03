@@ -6,6 +6,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>bookShopView.jsp</welcome-file>
+        <welcome-file>WebShopController</welcome-file>
     </welcome-file-list>
 </web-app>

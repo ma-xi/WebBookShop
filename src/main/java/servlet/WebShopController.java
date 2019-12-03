@@ -11,6 +11,7 @@ import beans.Publisher;
 import database.DB_Access;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -92,24 +93,27 @@ public class WebShopController extends HttpServlet {
 //                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
             String authorStr = "";
             LinkedList<Book> booklist =new LinkedList<Book>(DB_Access.getAllBooksFromAuthor(authorStr));
-            
-            if(request.getParameter("sortSelection").equals("Titel"))
+            //JOptionPane.showMessageDialog(null, Arrays.toString(booklist.toArray()));
+            if(request.getParameter("sortSelection") != null)
             {
-                Collections.sort(booklist,(o1, o2) -> {
-                    return o1.getTitle().compareTo(o2.getTitle());
-                });
-            }
-            else if(request.getAttribute("sortSelection").equals("Autor"))
-            {
-                Collections.sort(booklist,(o1, o2) -> {
-                    return (o1.getAuthorList()+"").compareTo(o2.getAuthorList()+"");
-                });
-            }
-                 else if(request.getAttribute("sortSelection").equals("Preis"))
-            {
-                Collections.sort(booklist,(o1, o2) -> {
-                    return (o1.getPrice()+"").compareTo(o2.getPrice()+"");
-                });
+                if(request.getParameter("sortSelection").equals("Titel"))
+                {
+                    Collections.sort(booklist,(o1, o2) -> {
+                        return o1.getTitle().compareTo(o2.getTitle());
+                    });
+                }
+                else if(request.getParameter("sortSelection").equals("Autor"))
+                {
+                    Collections.sort(booklist,(o1, o2) -> {
+                        return (o1.getAuthorList()+"").compareTo(o2.getAuthorList()+"");
+                    });
+                }
+                     else if(request.getParameter("sortSelection").equals("Preis"))
+                {
+                    Collections.sort(booklist,(o1, o2) -> {
+                        return (o1.getPrice()+"").compareTo(o2.getPrice()+"");
+                    });
+                }
             }
             //        booklist.add(b);
             request.setAttribute("books2display", booklist);

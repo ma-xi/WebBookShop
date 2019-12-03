@@ -30,8 +30,18 @@
                     <option value="Preis">Preis</option>
                 </select>
                 <label class="mr-sm-2">Filtern:</label>
-                <input type="text" name="filter" value="" />
-                <input type="submit" value="Filtern" name="filterBtn" />
+                <input type="text" class="form-control mr-sm-2" name="filter" value="" />
+                <input type="submit"  class="btn btn-secondary mr-sm-2" value="Filtern" name="filterBtn" />
+                <div class="form-check-inline mr-sm-2">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="filterSel" value="title" checked>filtern nach Titel
+                    </label>
+                </div>
+                <div class="form-check-inline mr-sm-2">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="filterSel" value="author">filtern nach Autor
+                    </label>
+                </div>
             </form> 
             <br/>
             <table class="table table-dark table-hover">

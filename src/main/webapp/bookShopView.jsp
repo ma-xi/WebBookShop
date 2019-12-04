@@ -15,7 +15,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="scripts.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Woggmaier Büchergroßhandel</title>
     </head>
     <body>
         <div class="jumbotron text-center">

@@ -15,6 +15,10 @@ public class Publisher {
 
     public Publisher(String nameOfPublisher, String url) {
         this.nameOfPublisher = nameOfPublisher;
+        if(!url.equals("") && !url.startsWith("http"))
+        {
+            url = "http://"+url;
+        }
         this.url = url;
     }
 

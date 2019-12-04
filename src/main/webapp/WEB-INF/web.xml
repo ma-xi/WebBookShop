@@ -8,4 +8,8 @@
     <welcome-file-list>
         <welcome-file>WebShopController</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/SiteNotFound.html</location>
+    </error-page>
 </web-app>

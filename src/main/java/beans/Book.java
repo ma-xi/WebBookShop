@@ -25,6 +25,10 @@ public class Book {
 
     public Book(String title, String url, double price, String isbn, List<Author> author, Publisher publisher) {
         this.title = title;
+        if(!url.equals("") && !url.startsWith("http"))
+        {
+            url = "http://"+url;
+        }
         this.url = url;
         this.price = price;
         this.isbn = isbn;

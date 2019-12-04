@@ -17,6 +17,10 @@ public class Author{
     public Author(String vorname, String nachname, String url) {
         this.vorname = vorname;
         this.nachname = nachname;
+        if(!url.equals("") && !url.startsWith("http"))
+        {
+            url = "http://"+url;
+        }
         this.url = url;
     }
 

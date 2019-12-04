@@ -121,7 +121,7 @@ public class WebShopController extends HttpServlet {
                 if(shoppingCart != null || !shoppingCart.isEmpty())
                 {
                     shoppingCart.clear();
-                    JOptionPane.showMessageDialog(null, "Warenkorb erfolgreich entleert!");
+                    //JOptionPane.showMessageDialog(null, "Warenkorb erfolgreich entleert!");
                 }
                 request.getSession().setAttribute("shoppingCart", shoppingCart);
                 request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
@@ -155,7 +155,7 @@ public class WebShopController extends HttpServlet {
                         {
                             shoppingCart.add(art);
                         }
-                        JOptionPane.showMessageDialog(null, "Artikel erfolgreich zu Warenkorb hinzugefügt!");
+                        //JOptionPane.showMessageDialog(null, "Artikel erfolgreich zu Warenkorb hinzugefügt!");
                     }
                 }
 //                for (Article article : shoppingCart) 
@@ -193,7 +193,7 @@ public class WebShopController extends HttpServlet {
                 });
             }
 
-            if (filterParam != null && sof != null && sof.equals("filter"))
+            if (filterParam != null && !filterParam.equals("") && sof != null && sof.equals("filter"))
             {
                 filterParam = filterParam.trim();
                 String filter = filterParam.toLowerCase();

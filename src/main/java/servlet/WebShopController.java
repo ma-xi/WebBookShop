@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import beans.Article;
 import beans.Author;
 import beans.Book;
 import beans.Publisher;
@@ -99,7 +100,7 @@ public class WebShopController extends HttpServlet {
             String filterType = request.getParameter("filterSel");
             LinkedList<Book> booklist;
             List<Book> filteredBookList = new LinkedList<>();
-            JOptionPane.showMessageDialog(null, sof);
+//            JOptionPane.showMessageDialog(null, sof);
             if((filterParam == null || 
                 !filterParam.equals(request.getSession().getAttribute("setFilter")) ||
                 filterType == null ||    
@@ -112,6 +113,58 @@ public class WebShopController extends HttpServlet {
             else
             {
                 booklist = new LinkedList((Collection) request.getSession().getAttribute("books2display"));
+            }
+            
+            if(request.getParameter("empty") != null)
+            {
+                List<Article> shoppingCart = (List<Article>) request.getSession().getAttribute("shoppingCart");
+                if(shoppingCart != null || !shoppingCart.isEmpty())
+                {
+                    shoppingCart.clear();
+                    JOptionPane.showMessageDialog(null, "Warenkorb erfolgreich entleert!");
+                }
+                request.getSession().setAttribute("shoppingCart", shoppingCart);
+                request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
+                return;
+            }
+            
+            String book4sc = request.getParameter("bTitle");
+            if(book4sc != null && !book4sc.equals(""))
+            {
+                List<Article> shoppingCart = (List<Article>) request.getSession().getAttribute("shoppingCart");
+                if(shoppingCart == null)
+                {
+                    shoppingCart = new LinkedList<>();
+                }
+                for (Book b1 : booklist)
+                {
+                    if(b1.getTitle().equals(book4sc))
+                    {
+                        Article art = new Article(b1, 1);
+                        boolean artSet = false;
+                        for (Article oldArticle : shoppingCart) 
+                        {
+                            if(oldArticle.getBook().getTitle().equals(art.getBook().getTitle()))
+                            {
+                                int index = shoppingCart.indexOf(oldArticle);
+                                shoppingCart.get(index).setAmount(shoppingCart.get(index).getAmount()+1);
+                                artSet = true;
+                            }
+                        }
+                        if(!artSet)
+                        {
+                            shoppingCart.add(art);
+                        }
+                        JOptionPane.showMessageDialog(null, "Artikel erfolgreich zu Warenkorb hinzugefügt!");
+                    }
+                }
+//                for (Article article : shoppingCart) 
+//                {
+//                    JOptionPane.showMessageDialog(null, article.getBook().getTitle());
+//                }
+                request.getSession().setAttribute("shoppingCart", shoppingCart);
+                request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
+                return;
             }
 //            for (Book book : booklist) {
 //                System.out.println(book.getTitle());
@@ -165,8 +218,7 @@ public class WebShopController extends HttpServlet {
                         List<Author> aList = b.getAuthorList();
                         for (Author author : aList)
                         {
-                            if(author.getNachname().toLowerCase().contains(filter)
-                                    || author.getVorname().toLowerCase().contains(filter))
+                            if((author.getVorname()+" "+author.getNachname()).toLowerCase().contains(filter))
                             {
                                 return true;
                             }
@@ -210,7 +262,7 @@ public class WebShopController extends HttpServlet {
 //            notRightList.clear();
             request.getSession().setAttribute("books2display", filteredBookList);
             request.getSession().setAttribute("setFilter", filterParam);
-            request.setAttribute("setSort", sortStr);
+            request.getSession().setAttribute("setSort", sortStr);
             request.getSession().setAttribute("setFilterSel", filterType);
             request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
         } catch (Exception ex) {

@@ -26,53 +26,75 @@
         <div class="container">
             <div class="jumbotron">
                 <form id="optionForm" class="form-inline" action="WebShopController" method="POST">
-                    <label class="mr-sm-2">Sortieren nach:</label>
-                    <select id="sortSelection" class="form-control mb-2 mr-sm-2" 
-                            name="sortSelection" onchange="sortBooks()">
-                        <c:choose>
-                            <c:when test="${setSort.equals('Titel')}">
-                                <option value="Titel" selected>Titel</option>
-                                <option value="Autor">Autor</option>
-                                <option value="Preis">Preis</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="Titel">Titel</option>
-                                <c:choose>
-                                    <c:when test="${setSort.equals('Autor')}">
-                                        <option value="Autor" selected>Autor</option>
-                                        <option value="Preis">Preis</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="Autor">Autor</option>
-                                        <option value="Preis" selected>Preis</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:otherwise>
-                        </c:choose>
-                    </select>
-                    <label class="mr-sm-2">Filtern:</label>
-                    <input type="text" class="form-control mr-sm-2" name="filter" 
-                           value="${setFilter}"/>
-                    <input type="submit"  class="btn btn-secondary mr-sm-2" value="Filtern"
-                           name="filterBtn" />
-                    <div class="form-check-inline mr-sm-2">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="filterSel" 
-                                accept="" value="title" checked>filtern nach Titel
-                        </label>
-                    </div>
-                    <div class="form-check-inline mr-sm-2">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="filterSel" 
-                                accept=""value="author">filtern nach Autor
-                        </label>
-                    </div>
-                    <div class="form-check-inline mr-sm-2">
-                        <button type="button" class="btn btn-warning" 
-                                data-toggle="modal" data-target="#myModal">
-                            Warenkorb anzeigen
-                        </button>
-                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label class="mr-sm-2">Sortieren nach:</label>
+                                </td>
+                                <td>
+                                    <select id="sortSelection" class="form-control mb-2 mr-sm-2" 
+                                            name="sortSelection" onchange="sortBooks()">
+                                        <c:choose>
+                                            <c:when test="${setSort.equals('Titel')}">
+                                                <option value="Titel" selected>Titel</option>
+                                                <option value="Autor">Autor</option>
+                                                <option value="Preis">Preis</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="Titel">Titel</option>
+                                                <c:choose>
+                                                    <c:when test="${setSort.equals('Autor')}">
+                                                        <option value="Autor" selected>Autor</option>
+                                                        <option value="Preis">Preis</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="Autor">Autor</option>
+                                                        <option value="Preis" selected>Preis</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </select>
+                                </td>
+                                <td>
+                                    <label class="mr-sm-2">Filtern:</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control mr-sm-2" name="filter" 
+                                           value="${setFilter}"/>
+                                </td>
+                                <td>
+                                    <input type="submit"  class="btn btn-secondary mr-sm-2" value="Filtern"
+                                           name="filterBtn" />
+                                </td>
+                                <td>
+                                    <div class="form-check-inline mr-sm-2">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="filterSel" 
+                                                accept="" value="title" checked>filtern nach Titel
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check-inline mr-sm-2">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="filterSel" 
+                                                accept=""value="author">filtern nach Autor
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check-inline mr-sm-2">
+                                        <button type="button" class="btn btn-warning" 
+                                                data-toggle="modal" data-target="#myModal">
+                                            Warenkorb anzeigen
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <input type="hidden" name="sortOrFilter" id="sortOrFilter" value="filter" />
                 </form>
             </div>
@@ -134,8 +156,15 @@
                                     <td>${article.amount}</td>
                                     <td>${article.getFormattedPrice()}</td>
                                     <td>${article.getFormattedTotalPrice()}</td>
+                                    <c:set var="sum" scope="page" value="${sum + article.totalPrice}"/>
                                 </tr>
                             </c:forEach>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>Summe:</b></td>
+                                    <td><b>${String.format("%.2f €", sum != null ? sum : 0.)}</b></td>
+                                </tr>
                         </tbody>
                    </table>
                 </div>
@@ -143,7 +172,8 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <form id="addForm" class="form-inline" action="WebShopController" method="POST">                    
-                        <button type="submit" class="btn btn-warning">Warenkorb leeren</button>
+                        <button type="submit" class="btn btn-success mr-sm-2">Bestellen</button>
+                        <button type="submit" class="btn btn-warning mr-sm-2">Warenkorb leeren</button>
                         <input type="hidden" name="empty" value="empty" />
                     </form>   
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>                    

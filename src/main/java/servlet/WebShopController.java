@@ -118,10 +118,9 @@ public class WebShopController extends HttpServlet {
             if(request.getParameter("empty") != null)
             {
                 List<Article> shoppingCart = (List<Article>) request.getSession().getAttribute("shoppingCart");
-                if(shoppingCart != null || !shoppingCart.isEmpty())
+                if(shoppingCart != null && !shoppingCart.isEmpty())
                 {
                     shoppingCart.clear();
-                    //JOptionPane.showMessageDialog(null, "Warenkorb erfolgreich entleert!");
                 }
                 request.getSession().setAttribute("shoppingCart", shoppingCart);
                 request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);

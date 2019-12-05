@@ -20,7 +20,8 @@
     <body>
         <div class="jumbotron text-center">
             <h1>Woggmaier Büchergroßhandel</h1>
-            <h5>Bücher mit dem besonderen Pfiff</h5> 
+            <h5>Bücher mit dem besonderen Pfiff</h5>
+            <h3>Zusatzfeature: Warenkorb</h3>
         </div>
         <div class="container">
             <div class="jumbotron">

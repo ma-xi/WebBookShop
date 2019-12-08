@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 
+ * @author
  */
 public class DB_Access {
     
@@ -29,15 +29,6 @@ public class DB_Access {
 
     public static List<Book> getAllBooksFromAuthor() throws Exception {
         PreparedStatement pStat = pStatPool.getPStat(DB_StmtType.GETBOOKS);
-//        if(!author.equals(""))
-//        {
-//               pStat.setString(1, author);
-//        }
-//        
-//        else
-//        {
-//            pStat.setString(1, "%%");
-//        }
      
         ResultSet rs = pStat.executeQuery();
         List<Book> bookList = new LinkedList<>();
@@ -52,7 +43,6 @@ public class DB_Access {
             String isbn = rs.getString("isbn");
   
             Book book = new Book(title,bookurl,price,isbn,getAuthors(book_id),getPublisher(publisher_id));
-//            System.out.println(book);
             if(!bookList.contains(book))
             {
                 bookList.add(book);
@@ -94,16 +84,6 @@ public class DB_Access {
         }
         pStatPool.realesePStat(pstat);
         return p;
-    }
-    public static void main(String[] args) {
-        DB_Access dba = new DB_Access();
-        try {
-         //   List<Book> books = dba.getAllBooksFromAuthor();
-          //  System.out.println(books);
-        } catch (Exception ex) {
-            Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
 }
 

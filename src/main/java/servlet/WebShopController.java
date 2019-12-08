@@ -89,19 +89,13 @@ public class WebShopController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            //        Author author = new Author("Leonhard", "Wogg", "www.google.com");
-//        List<Author> authorL = List.of(author);
-//        Book b = new Book("Leben und Tod des Johnny Cash", "www.google.com", 100, "69", 
-//                authorL,
-//                new Publisher("Heinrich Freddy Quinn", "www.google.com"));
-//            String authorStr = "";
             String sof = request.getParameter("sortOrFilter");
             String filterParam = request.getParameter("filter");
             String filterType = request.getParameter("filterSel");
             LinkedList<Book> booklist;
             List<Book> filteredBookList = new LinkedList<>();
-//            JOptionPane.showMessageDialog(null, sof);
             if((filterParam == null || 
+                filterParam.equals("") ||
                 !filterParam.equals(request.getSession().getAttribute("setFilter")) ||
                 filterType == null ||    
                 !filterType.equals(request.getSession().getAttribute("setFilterSel")))
@@ -154,24 +148,13 @@ public class WebShopController extends HttpServlet {
                         {
                             shoppingCart.add(art);
                         }
-                        //JOptionPane.showMessageDialog(null, "Artikel erfolgreich zu Warenkorb hinzugefügt!");
                     }
                 }
-//                for (Article article : shoppingCart) 
-//                {
-//                    JOptionPane.showMessageDialog(null, article.getBook().getTitle());
-//                }
                 request.getSession().setAttribute("shoppingCart", shoppingCart);
                 request.getRequestDispatcher("/bookShopView.jsp").forward(request, response);
                 return;
             }
-//            for (Book book : booklist) {
-//                System.out.println(book.getTitle());
-//            }
-//            LinkedList<Book> notRightList = new LinkedList<Book>();
-
-            //if(request.getParameter("sortSelection").equals("Titel"))
-            //JOptionPane.showMessageDialog(null, Arrays.toString(booklist.toArray()));
+            
             String sortStr = request.getParameter("sortSelection");
             if(sortStr == null)
             {
@@ -197,22 +180,6 @@ public class WebShopController extends HttpServlet {
                 filterParam = filterParam.trim();
                 String filter = filterParam.toLowerCase();
                 if (filterType.equals("author")) {
-////                    JOptionPane.showMessageDialog(null, "author oida");
-//                    for (Book b : booklist) {
-//                        boolean notRight = true;
-//                        for (Author a : b.getAuthorList()) {
-//
-//                            if (a.getNachname().toLowerCase().contains(filter) || a.getVorname().toLowerCase().contains(filter)) {
-//                                notRight = false;
-//                            }
-//                        }
-//                        if (notRight) {
-//                            notRightList.add(b);
-//                        }
-//                    }
-//                    for (Book b : notRightList) {
-//                        booklist.remove(b);
-//                    }
                     filteredBookList = booklist.stream().filter((b) -> {
                         List<Author> aList = b.getAuthorList();
                         for (Author author : aList)
@@ -226,26 +193,8 @@ public class WebShopController extends HttpServlet {
                     }).collect(Collectors.toList());
                     
                 } else {
-//                    for(Book b:booklist)
-//                    {
-//                        if(!b.getTitle().toLowerCase().contains(filter))
-//                        {
-//                            notRightList.add(b);
-//                        }
-//                    }
-//                    for(Book b:notRightList)
-//                    {
-//                        booklist.remove(b);
-//                    }
-//                    JOptionPane.showMessageDialog(null, "hfkjdasahkfjldsahkljfhkdasjlfhdlj");
-//                    booklist.stream()
-//                            .filter((b) -> (b.getTitle().toLowerCase().contains(filter.toLowerCase())))
-//                            .collect(Collectors.toList());
                     filteredBookList = booklist.stream()
                             .filter((b) -> {
-//                                System.out.println("Filter: "+filter
-//                                    +" - Titel: "+b.getTitle().toLowerCase()
-//                                    +" - contains: "+b.getTitle().toLowerCase().contains(filter));
                                 return b.getTitle().toLowerCase().contains(filter);
                             })
                             .collect(Collectors.toList());
@@ -257,8 +206,6 @@ public class WebShopController extends HttpServlet {
                 filteredBookList = booklist;
             }
 
-            //        booklist.add(b);
-//            notRightList.clear();
             request.getSession().setAttribute("books2display", filteredBookList);
             request.getSession().setAttribute("setFilter", filterParam);
             request.getSession().setAttribute("setSort", sortStr);
